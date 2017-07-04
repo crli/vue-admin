@@ -21,6 +21,6 @@ export default {
   //退出登录
   [OUT_LOGIN](state) {
     state.userInfo = null;
-    delCookie("USERToken")
+    delCookie("ATOKEN")
   },
 }

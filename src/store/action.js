@@ -9,7 +9,7 @@ import {baseUrl} from '../config/env'
 import {getCookie} from '@/config/mUtils'
 export default {
   getUserInfo({commit,state}) {
-    let Token = getCookie("USERToken")
+    let Token = getCookie("ATOKEN")
     getUser(Token).then((response) => {
       if(response&&response.data){
         commit(GET_USERINFO,response.data)

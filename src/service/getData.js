@@ -1,6 +1,6 @@
 import axios from 'axios'
 import '../config/http'
-// import md5 from 'js-md5'
+import md5 from 'js-md5'
 import {baseUrl,imgSrc} from '../config/env'
 function changePara(obj) {
   let newObj = {};
@@ -10,3 +10,5 @@ function changePara(obj) {
 
 // 获得用户信息
 export const getUser = (token) => axios.post(baseUrl+'app/GetUserInfo', changePara({Token:token}))
+
+export const StaffLogin = (UserName,PassWord) => axios.post(baseUrl+'Erp/StaffLogin', changePara({UserName:UserName,PassWord:PassWord}))

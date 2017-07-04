@@ -2,8 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import App from '../App'
 import {getCookie} from '@/config/mUtils'
-const home = r => require.ensure([], () => r(require('@/components/home/home')), 'home')
-
+const login = r => require.ensure([], () => r(require('@/components/login/login')), 'login')
+const admin = r => require.ensure([], () => r(require('@/components/admin/admin')), 'admin')
 Vue.use(Router)
 
 const routes = [
@@ -13,19 +13,19 @@ const routes = [
       children: [
       {
         path: '',
-        redirect: '/home'
+        redirect: '/login'
       },
       {
-        path: '/home',
-        component: home
+        path: '/login',
+        component: login
       },
-      // {
-      //   path: '/cart',
-      //   component: cart,
-      //   meta: {
-      //       requireAuth: true,
-      //   }
-      // }
+      {
+        path: '/admin',
+        component: admin,
+        meta: {
+            requireAuth: true,
+        }
+      }
       ]
     }
 
@@ -37,7 +37,7 @@ const router =  new Router({
 })
 router.beforeEach((to, from, next) => {
   if (to.matched.some(r => r.meta.requireAuth)) {
-      if (getCookie("USERToken")) {
+      if (getCookie("ATOKEN")) {
           next();
       }
       else {

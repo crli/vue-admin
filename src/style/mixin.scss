@@ -30,7 +30,6 @@ $fcolor:#fb8a71;
 @mixin wh($width, $height){
 	width: $width;
 	height: $height;
-}
 
 }
 @mixin font-dpr($font-size){

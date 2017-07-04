@@ -8,10 +8,6 @@ axios.defaults.timeout = 30000;
 // http request 拦截器
 axios.interceptors.request.use(
     config => {
-
-      if (getCookie("USERToken")) {
-
-      }
       return config;
     },
     err => {
@@ -21,11 +17,17 @@ axios.interceptors.request.use(
 // http response 拦截器
 axios.interceptors.response.use(
     response => {
-      return response;
+      if(response.data.Code == 3008){
+        store.commit(OUT_LOGIN);
+        router.push('/login?redirect='+router.currentRoute.fullPath)
+      }else{
+        return response;
+      }
+
     },
     error => {
       if (error.response) {
-        if(error.response.status == 1001||error.response.status == 1002){
+        if(error.response.Code == 3008){
           store.commit(OUT_LOGIN);
           router.push('/login?redirect='+router.currentRoute.fullPath)
         }
