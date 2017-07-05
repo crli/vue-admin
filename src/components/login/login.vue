@@ -59,7 +59,7 @@ import {setCookie} from '@/config/mUtils'
               this.loading = false;
               if(response.data.Code == 0){
                 setCookie("ATOKEN",response.data.Msg)
-                this.$router.push("/admin")
+                this.$router.push("/admin/index")
               }else{
                 this.$message({
                   message: response.data.Msg,
@@ -80,7 +80,7 @@ import {setCookie} from '@/config/mUtils'
     }
   }
 </script>
-<style lang="scss">
+<style scoped lang="scss" >
   @import '../../style/mixin';
   .login{
     @include wh(100% ,100%);

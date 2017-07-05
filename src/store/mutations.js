@@ -1,5 +1,5 @@
 import {
-	GET_USERINFO,OUT_LOGIN
+	GET_USERINFO,OUT_LOGIN,NONE_GO
 } from './mutation-types.js'
 
 import {setCookie,removeStore,delCookie,setStore} from '../config/mUtils'
@@ -23,4 +23,7 @@ export default {
     state.userInfo = null;
     delCookie("ATOKEN")
   },
+  [NONE_GO](state,flag){
+    state.nonego = flag
+  }
 }

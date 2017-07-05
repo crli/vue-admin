@@ -9,6 +9,7 @@ Vue.use(Vuex)
 
 const state = {
   userInfo: null, //用户信息
+  nonego:false,//不可跨路由
 }
 
 export default new Vuex.Store({
