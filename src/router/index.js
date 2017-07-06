@@ -8,8 +8,10 @@ import Layout from '@/components/commen/Layout';
 const login = r => require.ensure([], () => r(require('@/components/login/login')), 'login')
 const admin = r => require.ensure([], () => r(require('@/components/admin/admin')), 'admin')
 const storefind = r => require.ensure([], () => r(require('@/components/store/storefind')), 'storefind')
-const storecreate = r => require.ensure([], () => r(require('@/components/store/storecreate')), 'storecreate')
-const storecreate2 = r => require.ensure([], () => r(require('@/components/store/storecreate2')), 'storecreate2')
+// const storecreate = r => require.ensure([], () => r(require('@/components/store/storecreate')), 'storecreate')
+// const storecreate2 = r => require.ensure([], () => r(require('@/components/store/storecreate2')), 'storecreate2')
+import storecreate2 from '@/components/store/storecreate2';
+import storecreate from '@/components/store/storecreate';
 Vue.use(Router)
 
 const routes = [
@@ -60,15 +62,15 @@ const router =  new Router({
 router.beforeEach((to, from, next) => {
   NProgress.start();
   if (to.matched.some(r => r.meta.requireAuth)) {
-      if (getCookie("ATOKEN")) {
-          next();
-      }
-      else {
-        next({
-            path: '/login',
-            query: {redirect: to.fullPath}
-        })
-      }
+    if (getCookie("ATOKEN")) {
+        next();
+    }
+    else {
+      next({
+          path: '/login',
+          query: {redirect: to.fullPath}
+      })
+    }
   }
   else {
     next();

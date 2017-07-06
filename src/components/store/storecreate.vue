@@ -28,6 +28,7 @@
 <script>
 import {GetArea,GetAllArea} from '@/service/getData'
 import {mapMutations} from 'vuex'
+import {setStore,getStore} from '@/config/mUtils'
 export default {
   name: 'store',
   data () {
@@ -46,9 +47,24 @@ export default {
     }
   },
   created(){
-    GetAllArea().then((response)=>{
-      this.options = response.data
-    })
+    let getData = getStore("CITYDATA");
+    try {
+      let arr = JSON.parse(getData);
+      if(Array.isArray(arr)){
+        this.options = arr;
+      }else{
+        GetAllArea().then((response)=>{
+          this.options = response.data;
+          setStore("CITYDATA",response.data)
+        })
+      }
+    }catch(e){
+      GetAllArea().then((response)=>{
+        this.options = response.data;
+        setStore("CITYDATA",response.data)
+      })
+    }
+
   },
   methods: {
     ...mapMutations([
