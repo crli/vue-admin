@@ -4,6 +4,7 @@ import router from '../router'
 import axios from 'axios'
 import {getCookie} from './mUtils'
 import {OUT_LOGIN} from '@/store/mutation-types.js'
+import { Notification } from 'element-ui';
 axios.defaults.timeout = 30000;
 // http request 拦截器
 axios.interceptors.request.use(
@@ -18,9 +19,18 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(
     response => {
       if(response.data.Code == 3008){
+        Notification.info({
+          title: '消息',
+          message: response.data.Msg
+        });
         store.commit(OUT_LOGIN);
         router.push('/login?redirect='+router.currentRoute.fullPath)
-      }else{
+      }if(response.data.Code == 3006){
+        Notification.info({
+          title: '消息',
+          message: response.data.Msg
+        });
+      } else{
         return response;
       }
 

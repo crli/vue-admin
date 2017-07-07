@@ -3,13 +3,11 @@
     <section v-if="nonego">
       <el-form :model="storeForm" :rules="rules" ref="storeForm" label-width="110px" class="storeForm">
         <h3 class="title">商家基本信息</h3>
-        <el-form-item label="商家名称" prop="Title">
-          <el-input v-model="storeForm.Title"></el-input>
-        </el-form-item>
+
         <el-row>
           <el-col :span="12">
-            <el-form-item label="邮编" prop="ZipCode">
-              <el-input v-model="storeForm.ZipCode"></el-input>
+            <el-form-item label="商家名称" prop="Title">
+              <el-input v-model="storeForm.Title"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -19,7 +17,6 @@
           </el-col>
         </el-row>
 
-
         <el-form-item label="地址(州市区)" prop="address">
           <el-cascader style="width:300px;"
             :options="options"
@@ -28,21 +25,43 @@
           ></el-cascader>
           <span style="color:red">{{tip}}</span>
         </el-form-item>
-        <el-form-item label="所属商圈">
-          <el-input v-model="storeForm.BizcircleId"></el-input>
-        </el-form-item>
+
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="邮编" prop="ZipCode">
+              <el-input v-model="storeForm.ZipCode"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="所属商圈">
+              <el-input v-model="storeForm.BizcircleId"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+
+
+
         <el-form-item label="地址(路、号)"  prop="Addr">
           <el-input v-model="storeForm.Addr"></el-input>
         </el-form-item>
-        <el-form-item label="所属类型" prop="GroupId">
-          <el-select v-model="storeForm.GroupId" placeholder="请选择所属类型">
-            <el-option label="美食折扣" value="210"></el-option>
-            <el-option label="嗨玩美国" value="209"></el-option>
-            <el-option label="没法护肤" value="211"></el-option>
-            <el-option label="生活家政" value="212"></el-option>
-          </el-select>
-        </el-form-item>
 
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="所属类型" prop="GroupId">
+              <el-select v-model="storeForm.GroupId" placeholder="请选择所属类型">
+                <el-option label="美食折扣" value="210"></el-option>
+                <el-option label="嗨玩美国" value="209"></el-option>
+                <el-option label="没法护肤" value="211"></el-option>
+                <el-option label="生活家政" value="212"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="联系电话" prop="Tel">
+              <el-input v-model="storeForm.Tel"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
         <el-row>
           <el-col :span="12">
             <el-form-item label="经度"prop="position">
@@ -55,9 +74,7 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <el-form-item label="联系电话" prop="Tel">
-          <el-input v-model="storeForm.Tel"></el-input>
-        </el-form-item>
+
         <h3 class="title">联系人<el-button type="primary"size="small" style="margin-left:20px" @click="adduser">添加联系人</el-button></h3>
         <template v-for="(item,index) in storeForm.lists">
           <div class="box">
@@ -258,7 +275,12 @@ export default {
           else{
             AddMerchantResources(getCookie("ATOKEN"),0,this.storeForm.Title,this.storeForm.EnTitle,this.storeForm.ZipCode,this.storeForm.Id,this.storeForm.CountyId,this.storeForm.AreaId,this.storeForm.BizcircleId,this.storeForm.GroupId,this.storeForm.Lat,this.storeForm.Lng,this.storeForm.Tel,this.storeForm.Addr,this.storeForm.lists,this.storeForm.www)
               .then((response)=>{
-
+                if(response.data.Code ==0){
+                  this.$message({
+                    message: '创建成功，该商家已成功加入公海',
+                    type: 'success'
+                  });
+                }
               })
           }
         } else {
@@ -286,7 +308,7 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-@import '../../style/mixin';
+@import '../../../../style/mixin';
   h3.tip{
     @include center
   }
@@ -296,7 +318,7 @@ export default {
   }
   .storeForm{
     margin: 0 auto;
-    width:700px;
+    width:100%;
     text-align: left;
   }
   .box{

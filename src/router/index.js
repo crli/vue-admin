@@ -6,12 +6,18 @@ import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 import Layout from '@/components/commen/Layout';
 const login = r => require.ensure([], () => r(require('@/components/login/login')), 'login')
-const admin = r => require.ensure([], () => r(require('@/components/admin/admin')), 'admin')
-const storefind = r => require.ensure([], () => r(require('@/components/store/storefind')), 'storefind')
-// const storecreate = r => require.ensure([], () => r(require('@/components/store/storecreate')), 'storecreate')
-// const storecreate2 = r => require.ensure([], () => r(require('@/components/store/storecreate2')), 'storecreate2')
-import storecreate2 from '@/components/store/storecreate2';
-import storecreate from '@/components/store/storecreate';
+
+const home = r => require.ensure([], () => r(require('@/components/home/home')), 'home')
+const admin = r => require.ensure([], () => r(require('@/components/home/children/admin/admin')), 'admin')
+const storefind = r => require.ensure([], () => r(require('@/components/home/children/storefind/storefind')), 'storefind')
+const storecreate = r => require.ensure([], () => r(require('@/components/home/children/storecreate/storecreate')), 'storecreate')
+const storecreate2 = r => require.ensure([], () => r(require('@/components/home/children/storecreate2/storecreate2')), 'storecreate2')
+
+const resources = r => require.ensure([], () => r(require('@/components/resources/resources')), 'resources')
+const msq = r => require.ensure([], () => r(require('@/components/resources/children/msq/msq')), 'msq')
+const privately = r => require.ensure([], () => r(require('@/components/resources/children/privately/privately')), 'privately')
+const pub = r => require.ensure([], () => r(require('@/components/resources/children/pub/pub')), 'pub')
+const visit = r => require.ensure([], () => r(require('@/components/resources/children/visit/visit')), 'visit')
 Vue.use(Router)
 
 const routes = [
@@ -19,37 +25,24 @@ const routes = [
       path: '/',
       component: App,
       children: [
-      {
-        path: '',
-        redirect: '/login'
-      },
-      {
-        path: '/login',
-        component: login
-      },
-      {
-        path: '/admin',
-        component: Layout,
-        meta: {
-            requireAuth: true,
+        { path: '',redirect: '/login'},
+        { path: '/login',component: login},
+        { path: '/home',component: Layout,meta: {requireAuth: true,},
+          children: [
+            { path: 'admin', component: admin },
+            { path: 'storefind', component: storefind },
+            { path: 'storecreate', component:storecreate },
+            { path: 'storecreate2', component:storecreate2 }
+          ]
         },
-        children: [{ path: 'index', component: admin }]
-      },
-      {
-        path: '/storefind',
-        component: Layout,
-        children: [
-          { path: 'index', component: storefind}
-        ]
-      },
-      {
-        path: '/storecreate',
-        component: Layout,
-        children: [
-          { path: 'frist', component: storecreate},
-          { path: 'second', component: storecreate2}
-        ]
-      }
+        { path: '/resources',component: Layout,
+          children: [
+            { path: 'msq', component: msq},
+            { path: 'privately', component: privately},
+            { path: 'pub', component: pub},
+            { path: 'visit', component: visit},
+          ]
+        },
       ]
     }
 

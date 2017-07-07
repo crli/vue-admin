@@ -1,5 +1,5 @@
 import {
-	GET_USERINFO,OUT_LOGIN,NONE_GO
+	GET_USERINFO,OUT_LOGIN,NONE_GO,SET_ROUTER
 } from './mutation-types.js'
 
 import {setCookie,removeStore,delCookie,setStore} from '../config/mUtils'
@@ -25,5 +25,8 @@ export default {
   },
   [NONE_GO](state,flag){
     state.nonego = flag
+  },
+  [SET_ROUTER](state,arr){
+    state.routers = arr
   }
 }

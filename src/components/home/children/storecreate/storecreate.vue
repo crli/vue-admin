@@ -21,7 +21,6 @@
     <section style="text-align:center;margin-top:30px" v-show="start">
       <el-button type="info" @click="storecreate2">无您需要的商家，可以创建</el-button>
     </section>
-    <router-view></router-view>
   </div>
 </template>
 
@@ -84,7 +83,7 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-@import '../../style/mixin';
+@import '../../../../style/mixin';
   .find-form{
     text-align: center;
     margin-top: 30px;

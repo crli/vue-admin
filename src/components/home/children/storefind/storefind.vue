@@ -30,7 +30,7 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-@import '../../style/mixin';
+@import '../../../../style/mixin';
   .find-form{
     text-align: center;
     margin-top: 50px;
