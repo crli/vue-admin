@@ -1,6 +1,6 @@
 <template>
   <header>
-    <el-menu theme="dark" :default-active="activeIndex" class="el-menu-demo" mode="horizontal"  @select="handleSelect" :router="true">
+    <el-menu theme="dark" :default-active="activeIndex" class="el-menu-demo" mode="horizontal"  @select="handleSelect" router>
       <li class="select">
         <div class="cascader">
         <el-cascader
@@ -62,8 +62,8 @@ import {mapMutations} from 'vuex'
     created(){
       this.upath = this.$route.path;
       let url = '/'+this.upath.split("/")[1];
+      this.handleSelect(url);
       this.activeIndex = url;
-      this.handleSelect(url)
     },
     methods: {
       ...mapMutations([
@@ -75,18 +75,11 @@ import {mapMutations} from 'vuex'
             this.SET_ROUTER([
               {
                 "name":"门店查找",
-                "url":"/home/storefind",
-                children:[
-                  {
-                    "name":"111",
-                    "url":"/2222",
-                  }
-                ]
+                "url":"/home/storefind"
               },
               {
                 "name":"门店创建",
                 "url":"/home/storecreate",
-                children:[]
               }
             ])
 
@@ -121,7 +114,7 @@ import {mapMutations} from 'vuex'
         console.log(val)
         // window.location.href = "http://www.baidu.com"+val[val.length-1]
       }
-    }
+    },
   }
 </script>
 <style scoped lang="scss">

@@ -59,7 +59,7 @@ import {setCookie} from '@/config/mUtils'
               this.loading = false;
               if(response.data.Code == 0){
                 setCookie("ATOKEN",response.data.Msg)
-                this.$router.push("/admin/index")
+                this.$router.push("/home")
               }else{
                 this.$message({
                   message: response.data.Msg,

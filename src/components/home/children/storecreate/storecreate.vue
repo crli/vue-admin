@@ -74,7 +74,7 @@ export default {
     },
     storecreate2(){
       this.NONE_GO(true);
-      this.$router.push("/storecreate/second")
+      this.$router.push("/home/storecreate2")
     },
     handleItemChange(val) {
       console.log('active item:', val);

@@ -115,6 +115,17 @@
     <section v-else>
       <h3 class="tip">不要跨页访问</h3>
     </section>
+    <el-dialog
+      title="提示"
+      :visible.sync="dialogVisible"
+      size="tiny"
+      :modal-append-to-body="false">
+      <span>创建成功，该商家已成功加入公海</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="again">继续添加</el-button>
+        <el-button type="primary" @click="topub">进入公海</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -156,6 +167,7 @@ export default {
       }
     };
     return {
+      dialogVisible: true,
       options: [],
       storeForm: {
         Title:'',
@@ -275,11 +287,8 @@ export default {
           else{
             AddMerchantResources(getCookie("ATOKEN"),0,this.storeForm.Title,this.storeForm.EnTitle,this.storeForm.ZipCode,this.storeForm.Id,this.storeForm.CountyId,this.storeForm.AreaId,this.storeForm.BizcircleId,this.storeForm.GroupId,this.storeForm.Lat,this.storeForm.Lng,this.storeForm.Tel,this.storeForm.Addr,this.storeForm.lists,this.storeForm.www)
               .then((response)=>{
-                if(response.data.Code ==0){
-                  this.$message({
-                    message: '创建成功，该商家已成功加入公海',
-                    type: 'success'
-                  });
+                if(response.data.Code == 0){
+                  this.dialogVisible = true
                 }
               })
           }
@@ -297,6 +306,16 @@ export default {
     },
     addwww(){
       this.storeForm.www.push({id:0,url:''})
+    },
+    again(){
+      this.dialogVisible = false;
+      this.$router.push("/home/storecreate")
+
+    },
+    topub(){
+      this.dialogVisible = false;
+      this.$router.push("/resources/pub");
+      location.reload()
     }
   },
   computed:{
