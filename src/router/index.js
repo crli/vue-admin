@@ -17,7 +17,9 @@ const resources = r => require.ensure([], () => r(require('@/components/resource
 const msq = r => require.ensure([], () => r(require('@/components/resources/children/msq/msq')), 'msq')
 const privately = r => require.ensure([], () => r(require('@/components/resources/children/privately/privately')), 'privately')
 const pub = r => require.ensure([], () => r(require('@/components/resources/children/pub/pub')), 'pub')
+const biz = r => require.ensure([], () => r(require('@/components/biz/biz')), 'biz')
 const visit = r => require.ensure([], () => r(require('@/components/resources/children/visit/visit')), 'visit')
+const visitcreate = r => require.ensure([], () => r(require('@/components/visitcreate/visitcreate')), 'visitcreate')
 Vue.use(Router)
 
 const routes = [
@@ -27,7 +29,7 @@ const routes = [
       children: [
         { path: '',redirect: '/login'},
         { path: '/login',component: login},
-        { path: '/home',component: Layout,meta: {requireAuth: true,},
+        { path: '/home',component: Layout,meta: {requireAuth: true,},redirect: '/home/admin',
           children: [
             { path: 'admin', component: admin },
             { path: 'storefind', component: storefind },
@@ -35,7 +37,7 @@ const routes = [
             { path: 'storecreate2', component:storecreate2 }
           ]
         },
-        { path: '/resources',component: Layout,
+        { path: '/resources',component: Layout,redirect: '/resources/pub',
           children: [
             { path: 'msq', component: msq},
             { path: 'privately', component: privately},
@@ -43,6 +45,8 @@ const routes = [
             { path: 'visit', component: visit},
           ]
         },
+        { path: '/biz',component: biz},
+        { path: '/visitcreate',component: visitcreate}
       ]
     }
 

@@ -1,6 +1,6 @@
 <template>
   <div class="admin">
-    <section class="section"style="margin:20px auto;width:1220px">
+    <section class="section"style="margin:20px auto;width:1221px">
       <el-table
           :data="tableData"
           border stripe
